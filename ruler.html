@@ -1,225 +1,257 @@
-<style>
-    .rul_cornerTL,
-    .rul_cornerTR {
-        border-bottom: 1px solid rgba(206, 219, 236, .5)
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    .rul_cornerBL,
-    .rul_cornerTL {
-        border-right: 1px solid rgba(206, 219, 236, .5)
-    }
-
-    .rul_cornerBL,
-    .rul_cornerBR {
-        bottom: 1px;
-        border-top: 1px solid rgba(206, 219, 236, .5)
-    }
-
-    .rul_cornerBR,
-    .rul_cornerTR {
-        right: 1px;
-        border-left: 1px solid rgba(206, 219, 236, .5)
-    }
-
-    .rul_wrapper {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        pointer-events: none
-    }
-
-    .rul_corner,
-    .rul_line,
-    .rul_ruler {
-        pointer-events: all;
-        position: absolute
-    }
-
-    .rul_wrapper * {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -o-user-select: none;
-        user-select: none
-    }
-
-    .rul_ruler {
-        display: block;
-        border: 1px solid rgba(206, 219, 236, .5);
-        filter: blur(0);
-        -webkit-filter: blur(0);
-        z-index: 1000
-    }
-
-    .rul_corner {
-        background-color: #fff;
-        z-index: 1010;
-        cursor: pointer
-    }
-
-    .rul_corner:hover {
-        background-color: #d3d3d3
-    }
-
-    .rul_cornerTL {
-        top: 0;
-        left: 0
-    }
-
-    .rul_cornerTR {
-        top: 1px
-    }
-
-    .rul_cornerBL {
-        left: 1px
-    }
-
-    .rul_ruler_Vertical {
-        cursor: ew-resize;
-        border-left: none
-    }
-
-    .rul_ruler_Horizontal {
-        cursor: ns-resize;
-        border-top: none
-    }
-
-    .rul_line {
-        color: transparent;
-        background-color: transparent;
-        border-bottom: 1px solid #3BB7C7;
-        border-left: 1px solid #3BB7C7;
-        z-index: 1000
-    }
-
-    .rul_line_dragged {
-        border: 1px dotted #6B7587
-    }
-
-    .rul_line:hover {
-        border-bottom: 1px solid #236E77;
-        border-left: 1px solid #236E77
-    }
-
-    .rul_lineVer {
-        top: 0;
-        bottom: 0
-    }
-
-    .rul_lineVer:hover {
-        cursor: ew-resize
-    }
-
-    .rul_lineHor {
-        right: 0;
-        left: 0
-    }
-
-    .rul_lineHor:hover {
-        cursor: ns-resize
-    }
-
-    .rul_tooltip:after {
-        background: #fff;
-        color: #000;
-        border: 1px solid gray;
-        font-size: 10px;
-        content: attr(data-tip);
-        top: 50%;
-        left: 50%;
-        margin-top: 1px;
-        margin-left: 1px;
-        padding: 2px 5px;
-        position: absolute;
-        z-index: 10001;
-        min-width: 45px
-    }
-
-    .rul_tracker {
-        height: 1px;
-        width: 1px;
-        background: #000;
-        position: absolute;
-        pointer-events: none
-    }
-</style>
-<style>
-    * {
-        /* overflow: hidden; */
-        /* -webkit-app-region: drag; */
-        -webkit-user-select: none;
-    }
-
-    html,
-    body {
-        overflow: hidden;
-        margin: 0;
-        padding: 0
-    }
-
-    .rul_corner {
-        -webkit-app-region: drag;
-    }
-</style>
-<div id="wrapper"></div>
-<script>
-    const ruler = require('rulerjs-plus');
-    var rul1 = new ruler({ container: document.querySelector('#wrapper') });
-    var guides1;
-    var visible1 = true;
-    var visibleGuides1 = true;
-    function setPosX1(val) {
-        rul1.api.setPos({ x: val });
-    }
-
-    function setPosY1(val) {
-        rul1.api.setPos({ y: val });
-    }
-
-    function setScale1(val) {
-        rul1.api.setScale(val);
-    }
-
-    function hideRuler1() {
-        rul1.api.toggleRulerVisibility(visibleGuides1 = !visibleGuides1);
-    }
-
-    function clearGuides1() {
-        rul1.api.clearGuides();
-    }
-
-    function storeGuides1() {
-        guides1 = rul1.api.getGuides();
-    }
-
-    function setGuides1() {
-        rul1.api.setGuides(guides1);
-    }
-
-    function hideGuides1() {
-        rul1.api.toggleGuideVisibility(visible1 = !visible1);
-    }
-
-    function destory1() {
-        rul1.api.destroy();
-    }
-
-    const mainWindow = require('electron').remote.BrowserWindow.getFocusedWindow();
-    window.addEventListener('mousemove', function (event) {
-        let el = event.target;
-        console.log(el.classList)
-        // if (!el.classList.contains('rul_corner')) {
-        //     mainWindow.setIgnoreMouseEvents(false)
-        // } else {
-        //     mainWindow.setIgnoreMouseEvents(true, { forward: true })
-        // }
-        if (el.classList.length != 0) {
-            mainWindow.setIgnoreMouseEvents(false)
-            // mainWindow.setOpacity(1);
-        } else {
-            mainWindow.setIgnoreMouseEvents(true, { forward: true })
-            // mainWindow.setOpacity(0.5);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .rul_cornerTL,
+        .rul_cornerTR {
+            border-bottom: 1px solid rgba(206, 219, 236, .5)
         }
-    }) 
-</script>
+
+        .rul_cornerBL,
+        .rul_cornerTL {
+            border-right: 1px solid rgba(206, 219, 236, .5)
+        }
+
+        .rul_cornerBL,
+        .rul_cornerBR {
+            bottom: 1px;
+            border-top: 1px solid rgba(206, 219, 236, .5)
+        }
+
+        .rul_cornerBR,
+        .rul_cornerTR {
+            right: 1px;
+            border-left: 1px solid rgba(206, 219, 236, .5)
+        }
+
+        .rul_wrapper {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            pointer-events: none
+        }
+
+        .rul_corner,
+        .rul_line,
+        .rul_ruler {
+            pointer-events: all;
+            position: absolute
+        }
+
+        .rul_wrapper * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none
+        }
+
+        .rul_ruler {
+            display: block;
+            border: 1px solid rgba(206, 219, 236, .5);
+            filter: blur(0);
+            -webkit-filter: blur(0);
+            z-index: 1000
+        }
+
+        .rul_corner {
+            background-color: #fff;
+            z-index: 1010;
+            cursor: pointer
+        }
+
+        .rul_corner:hover {
+            background-color: #d3d3d3
+        }
+
+        .rul_cornerTL {
+            top: 0;
+            left: 0
+        }
+
+        .rul_cornerTR {
+            top: 1px
+        }
+
+        .rul_cornerBL {
+            left: 1px
+        }
+
+        .rul_ruler_Vertical {
+            cursor: ew-resize;
+            border-left: none
+        }
+
+        .rul_ruler_Horizontal {
+            cursor: ns-resize;
+            border-top: none
+        }
+
+        .rul_line {
+            color: transparent;
+            background-color: transparent;
+            border-bottom: 1px solid #3BB7C7;
+            border-left: 1px solid #3BB7C7;
+            z-index: 1000
+        }
+
+        .rul_line_dragged {
+            border: 1px dotted #6B7587
+        }
+
+        .rul_line:hover {
+            border-bottom: 1px solid #236E77;
+            border-left: 1px solid #236E77
+        }
+
+        .rul_lineVer {
+            top: 0;
+            bottom: 0
+        }
+
+        .rul_lineVer:hover {
+            cursor: ew-resize
+        }
+
+        .rul_lineHor {
+            right: 0;
+            left: 0
+        }
+
+        .rul_lineHor:hover {
+            cursor: ns-resize
+        }
+
+        .rul_tooltip:after {
+            background: #fff;
+            color: #000;
+            border: 1px solid gray;
+            font-size: 10px;
+            content: attr(data-tip);
+            top: 50%;
+            left: 50%;
+            margin-top: 1px;
+            margin-left: 1px;
+            padding: 2px 5px;
+            position: absolute;
+            z-index: 10001;
+            min-width: 45px
+        }
+
+        .rul_tracker {
+            height: 1px;
+            width: 1px;
+            background: #000;
+            position: absolute;
+            pointer-events: none
+        }
+    </style>
+    <style>
+        * {
+            /* overflow: hidden; */
+            /* -webkit-app-region: drag; */
+            -webkit-user-select: none;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0
+        }
+
+        .rul_ruler_Vertical {
+            margin-top: 47px;
+        }
+
+        .rul_ruler {
+            background: #fff;
+        }
+
+        .rul_corner {
+            -webkit-app-region: drag;
+            background: red;
+        }
+
+        .rul_tracker {
+            z-index: 9999;
+            background: red;
+        }
+    </style>
+    <script src="ruler.js"></script>
+</head>
+
+<body id="ruler">
+    <script>
+        var rul1 = new ruler({
+            container: document.querySelector('#ruler'),
+            enableMouseTracking: true,
+            enableToolTip: true
+        });
+        var guides1;
+        var visible1 = true;
+        var visibleGuides1 = true;
+        function setPosX1(val) {
+            rul1.api.setPos({ x: val });
+        }
+
+        function setPosY1(val) {
+            rul1.api.setPos({ y: val });
+        }
+
+        function setScale1(val) {
+            rul1.api.setScale(val);
+        }
+
+        function hideRuler1() {
+            rul1.api.toggleRulerVisibility(visibleGuides1 = !visibleGuides1);
+        }
+
+        function clearGuides1() {
+            rul1.api.clearGuides();
+        }
+
+        function storeGuides1() {
+            guides1 = rul1.api.getGuides();
+        }
+
+        function setGuides1() {
+            rul1.api.setGuides(guides1);
+        }
+
+        function hideGuides1() {
+            rul1.api.toggleGuideVisibility(visible1 = !visible1);
+        }
+
+        function destory1() {
+            rul1.api.destroy();
+        }
+
+        const { remote } = require('electron');
+        const mainWindow = remote.BrowserWindow.getFocusedWindow();
+        window.addEventListener('mousemove', function (event) {
+            let el = event.target;
+            // if (!el.classList.contains('rul_corner')) {
+            //     mainWindow.setIgnoreMouseEvents(false)
+            // } else {
+            //     mainWindow.setIgnoreMouseEvents(true, { forward: true })
+            // }
+            if (el.classList.length != 0) {
+                mainWindow.setIgnoreMouseEvents(false)
+                // mainWindow.setOpacity(1);
+            } else {
+                mainWindow.setIgnoreMouseEvents(true, { forward: true })
+                // mainWindow.setOpacity(0.5);
+            }
+            // document.querySelector('.rul_ruler').dispatchEvent(new Event('mousemove', { clientX: event.clientX, clientY: event.clientY }));
+
+        }) 
+    </script>
+</body>
+
+</html>
