@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- <html style="-webkit-app-region: drag;-webkit-user-select: none;min-height:100vh"> -->
+<html style="-webkit-app-region: drag;-webkit-user-select: none;">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Electron Screenshot App</title>
+</head>
+
+<body id="move">
+    <p class="move">Testing screenshots in Electron :3</p>
+    <img id="w" class="move" />
+    <input id="trigger" value="Fullscreen screenshot" type="button" />
+    <script src="./renderer.js"></script>
+    <script src="./capture.js"></script>
+
+    <!-- <script>
+            //* Here the fullscreenScreenshot function *//
+            
+            document.getElementById("trigger").addEventListener("click", function(){
+                fullscreenScreenshot(function(base64data){
+                    // Draw image in the img tag
+                    document.getElementById("my-preview").setAttribute("src", base64data);
+                },'image/png');
+            },false);
+        </script> -->
+</body>
+
+</html>

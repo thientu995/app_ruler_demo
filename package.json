@@ -1,0 +1,106 @@
+{
+  "name": "electron-quick-start",
+  "productName": "Electron tutorial app",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/windows/icon.ico --prune=true --out=release-builds --version-string.CompanyName='CE' --version-string.FileDescription='CE' --version-string.ProductName='ElectronTutorialApp'",
+    "package-linux": "electron-packager . --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds",
+    "installer-mac": "electron-installer-dmg ./release-builds/Electron\\ tutorial\\ app-darwin-x64/Electron\\ tutorial\\ app.app electron-tutorial-app --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns"
+  },
+  "build": {
+    "appId": "org.zulip.zulip-electron",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!docs${/*}",
+      "!node_modules/@paulcbetts/cld/deps/cld${/*}"
+    ],
+    "copyright": "©2017 Kandra Labs, Inc.",
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "category": "Chat;GNOME;GTK;Network;InstantMessaging",
+      "packageCategory": "GNOME;GTK;Network;InstantMessaging",
+      "description": "Zulip Desktop Client for Linux",
+      "target": [
+        "deb",
+        "zip",
+        "AppImage",
+        "snap"
+      ],
+      "maintainer": "Akash Nimare <svnitakash@gmail.com>"
+    },
+    "deb": {
+      "synopsis": "Zulip Desktop App",
+      "afterInstall": "./scripts/debian-add-repo.sh",
+      "afterRemove": "./scripts/debian-uninstaller.sh"
+    },
+    "snap": {
+      "synopsis": "Zulip Desktop App"
+    },
+    "dmg": {
+      "background": "build/appdmg.png",
+      "icon": "build/icon.icns",
+      "iconSize": 128,
+      "contents": [
+        {
+          "x": 380,
+          "y": 240,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 122,
+          "y": 240,
+          "type": "file"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis-web",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "publisherName": "Kandra Labs, Inc."
+    },
+    "nsis": {
+      "perMachine": true,
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "release": "build",
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^8.2.5",
+    "electron-builder": "^22.6.0",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^14.2.1",
+    "electron-winstaller": "^4.0.0"
+  },
+  "dependencies": {
+    "electron-process-manager": "^1.0.0",
+    "request": "^2.88.2",
+    "rulerjs-plus": "^1.0.1"
+  }
+}
